@@ -35,12 +35,23 @@ jobs:
           python -m pip install earthaccess h5py numpy matplotlib cartopy pillow requests eccodes ecmwf-opendata xarray netCDF4
           python -m eccodes selfcheck
 
+      # ================================================================
+      # PREPARE WEBSITE AND VISUAL IDENTITY
+      # ================================================================
+
       - name: Prepare website files
         run: |
           mkdir -p site/precipitation site/forecast_tropical site/forecast_ecmwf site/climate_state
           cp -R docs/. site/
 
-      # Restore the latest SST and OLR products.
+          # Copy TRÓPICO logos, author portrait, and other visual assets.
+          mkdir -p site/assets
+          cp -R assets/. site/assets/
+
+      # ================================================================
+      # RESTORE CLIMATE CACHE
+      # ================================================================
+
       - name: Restore cached SST and OLR products
         uses: actions/cache/restore@v4
         with:
@@ -80,7 +91,7 @@ jobs:
       # ================================================================
 
       # Scripts skip generation if the cached date is up to date.
-      # If NOAA fails, the cached products may still be published.
+      # If NOAA fails, cached products may still be published.
 
       - name: Generate daily SST products
         id: sst
@@ -110,6 +121,19 @@ jobs:
           from pathlib import Path
 
           site = Path('site')
+
+          # Verify website and visual identity.
+          required_assets = [
+              'index.html',
+              'assets/tropico_logo.png',
+              'assets/alejandro_jaramillo_moreno.png',
+          ]
+
+          for name in required_assets:
+              path = site / name
+              assert path.is_file() and path.stat().st_size > 0, path
+
+          print('Verified: website and TRÓPICO visual identity')
 
           # IMERG: four regional maps.
           imerg = json.loads(
