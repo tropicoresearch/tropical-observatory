@@ -4,134 +4,307 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Tropical Weather & Climate Observatory: satellite precipitation, tropical SST and OLR climate monitoring, and GFS/ECMWF forecasts.">
-  <title>Tropical Weather &amp; Climate Observatory</title>
+  <title>Tropical Weather &amp; Climate Observatory | TRÓPICO</title>
+  <link rel="icon" type="image/png" href="assets/tropical_observatory_logo_transparent.png">
   <style>
     :root {
-      --navy: #103655;
-      --navy-dark: #08283f;
-      --blue: #18557e;
-      --border: #d8e2ea;
-      --text: #263746;
-      --muted: #5b6e7d;
-      --background: #f3f6f9;
+      --navy: #092747;
+      --blue: #17659c;
+      --muted: #697b8d;
+      --border: #dfe6ef;
+      --background: #f5f7fb;
+      --surface: #ffffff;
+      --soft: #f9fbfd;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--background); color: var(--text);
-           font-family: Arial, Helvetica, sans-serif; line-height: 1.6; }
-    a { color: #14608f; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 1250px; margin: 0 auto; padding: 0 24px; }
-
-    /* Header and navigation: adapted from the original observatory website */
-    .masthead { background: var(--navy); color: white; padding: 22px 0; }
-    .brand { display: flex; align-items: center; gap: 28px; }
-    .brand img { display: block; width: 145px; height: 145px;
-                 object-fit: contain; flex-shrink: 0; }
-    .brand h1 { margin: 0; font-size: clamp(24px, 3vw, 36px);
-                font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; }
-    .brand p { margin: 12px 0 0; color: #c8dfef; font-size: 13px;
-               letter-spacing: 0.5px; text-transform: uppercase; }
-    nav { background: var(--blue); border-bottom: 3px solid #d2e1eb; }
-    nav .container { display: flex; flex-wrap: wrap; }
-    nav a { display: inline-block; padding: 14px 20px; color: white;
-            font-size: 12px; font-weight: bold; letter-spacing: 0.5px;
-            text-decoration: none; }
-    nav a:hover, nav a:focus-visible { background: #103e61; }
-
-    /* Main content */
-    main { padding-top: 32px !important; padding-bottom: 48px !important; }
-    .breadcrumb { margin-bottom: 20px; color: var(--muted); font-size: 12px; }
-    .section-title { margin-top: 0; padding-bottom: 10px;
-                     border-bottom: 2px solid #b5cedf; color: var(--navy); }
-    .intro { margin-bottom: 30px; padding: 24px 28px; background: white;
-             border: 1px solid var(--border); border-left: 4px solid var(--blue); }
-    .intro p { margin-bottom: 0; }
-    .product { margin-bottom: 30px; background: white; border: 1px solid var(--border); }
-    .section-lead { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
-    .product-header { padding: 20px 26px; border-bottom: 1px solid var(--border); }
-    .product-header h3 { margin: 0 0 7px; color: var(--navy); font-size: 23px; }
-    .product-header p { margin: 0; color: var(--muted); font-size: 14px; }
-    .product-body { padding: 22px; }
-    .product-map { display: block; width: 100%; height: auto; background: #edf3f7; }
-    #climate-state, #forecast, #products { scroll-margin-top: 20px; }
-    .map-selector { display: flex; align-items: center; flex-wrap: wrap;
-                    gap: 12px; margin-bottom: 20px; }
-    .map-selector label { font-size: 14px; font-weight: bold; color: var(--navy); }
-    .map-selector select { padding: 10px 14px; min-width: 210px;
-                           border: 1px solid var(--border); border-radius: 4px;
-                           background: white; color: var(--text);
-                           font: inherit; cursor: pointer; }
-    .map-selector select:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-    .forecast-controls { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:0 0 15px; }
-    .forecast-controls button { background:var(--blue); color:white; border:0; padding:9px 16px;
-      border-radius:4px; font-size:14px; cursor:pointer; }
-    .forecast-controls button:disabled { opacity:.45; cursor:default; }
-    .forecast-controls button:focus-visible { outline: 3px solid #69c2f2; }
-    .forecast-controls input[type="range"] { flex:1; min-width:180px; accent-color:var(--blue); }
-    .forecast-time { margin:8px 0 16px; color:var(--navy); font-weight:bold; font-size:14px; }
-    .product-note { margin-top: 18px; color: var(--muted); font-size: 13px; }
-    .resource-link { margin-top: 16px; font-size: 14px; }
-    .resource-link a { margin-right: 12px; }
-    .about { padding: 26px 28px; background: white; border: 1px solid var(--border); }
-    .about h2 { margin-top: 0; color: var(--navy); }
-    .about p { margin: 10px 0; }
-    .disclaimer { margin-top: 26px; padding: 18px 22px; background: #f1f5f8;
-                  border-left: 3px solid #9aafbf; color: #526575; font-size: 13px; }
-    footer { padding: 28px 0; background: var(--navy-dark);
-             color: #d4e1eb; font-size: 13px; }
-    footer a { color: #d4e9fa; }
-    footer p { margin: 7px 0; }
+    body {
+      margin: 0;
+      color: var(--navy);
+      background: var(--background);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: var(--blue); }
+    button, select, input { font: inherit; }
+    a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible {
+      outline: 3px solid #8db8e8;
+      outline-offset: 2px;
+    }
     [hidden] { display: none !important; }
-    @media (max-width: 700px) {
-      .brand { gap: 16px; }
-      .brand img { width: 85px; height: 85px; }
-      .brand h1 { font-size: 22px; }
-      .brand p { font-size: 10px; line-height: 1.5; }
-      nav a { padding: 12px; font-size: 11px; }
-      .intro, .about { padding: 18px; }
+
+    /* Shared visual identity with Global Atmospheric Monitor */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+      min-height: 78px;
+      padding: 12px 5%;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: center; gap: 20px; min-width: 0; }
+    .brand img { display: block; width: 145px; max-height: 56px; object-fit: contain; }
+    .brand-name {
+      border-left: 1px solid var(--border);
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .site-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .site-nav a { color: var(--navy); text-decoration: none; font-size: 13px; font-weight: 500; }
+    .site-nav a:hover, .site-footer a:hover { color: var(--blue); }
+    .page-shell { width: min(1560px, 100%); margin: 0 auto; padding: 36px 4% 50px; }
+    .introduction { margin-bottom: 31px; }
+    .eyebrow {
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 12px 0;
+      font-size: clamp(30px, 4vw, 49px);
+      font-weight: 650;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+    }
+    .description { max-width: 960px; font-size: 15px; line-height: 1.75; color: var(--muted); }
+    .update-note { font-size: 12px; color: var(--blue); margin: 12px 0 0; font-weight: 600; }
+
+    /* Scientific products and visualization controls */
+    .content-section { margin-top: 36px; scroll-margin-top: 20px; }
+    .section-heading { margin-bottom: 17px; }
+    .section-heading h2 {
+      margin: 7px 0 8px;
+      font-size: clamp(23px, 3vw, 30px);
+      letter-spacing: -.5px;
+      font-weight: 650;
+    }
+    .section-lead { margin: 0 0 20px; max-width: 1000px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .product {
+      margin-bottom: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+    .product-header {
+      padding: 21px 26px;
+      border-bottom: 1px solid var(--border);
+    }
+    .product-header h3 { margin: 0 0 6px; font-size: 19px; line-height: 1.35; font-weight: 650; }
+    .product-header p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .product-body { padding: 24px 26px 22px; }
+    .product-map {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #edf3f7;
+    }
+    .map-selector { display: flex; align-items: center; flex-wrap: wrap; gap: 11px 14px; margin-bottom: 20px; }
+    .map-selector label, .forecast-controls label { font-size: 12px; font-weight: 650; }
+    .map-selector select {
+      min-width: 190px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--soft);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .forecast-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 11px; margin: 0 0 15px; }
+    .forecast-controls button {
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--soft);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .forecast-controls button:hover:not(:disabled) { background: #eaf2f8; }
+    #forecast-play:not(:disabled) { background: var(--blue); color: white; border-color: var(--blue); }
+    #forecast-play:hover:not(:disabled) { background: #0b4d7d; }
+    .forecast-controls button:disabled { opacity: .45; cursor: default; }
+    .forecast-controls input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--blue); }
+    #forecast-step { color: var(--blue); font-size: 12px; font-weight: 650; }
+    .forecast-time { margin: 10px 0 16px; font-size: 13px; font-weight: 650; }
+    .product-note { margin-top: 17px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .resource-link { display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: 16px; font-size: 12px; }
+    .resource-link a { text-decoration: none; font-weight: 600; }
+    .resource-link a:hover { text-decoration: underline; }
+    .about {
+      padding: 24px 26px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      scroll-margin-top: 20px;
+    }
+    .about h2 { margin: 8px 0 12px; font-size: 23px; letter-spacing: -.5px; }
+    .about p { max-width: 1020px; margin: 10px 0; color: var(--muted); font-size: 13px; line-height: 1.85; }
+    .disclaimer { margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--border); }
+    .disclaimer strong { font-size: 12px; }
+    .disclaimer p { font-size: 12px; }
+    .site-footer {
+      margin-top: 38px;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+    .site-footer a { color: var(--blue); text-decoration: none; }
+    .site-footer p { margin: 7px 0 0; }
+
+    /* Author portrait and biography dialog, following Global Atmospheric Monitor */
+    .author-button {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      overflow: hidden;
+      padding: 0;
+      border: 1px solid #dce5ee;
+      border-radius: 50%;
+      background: #f5f8fb;
+      color: var(--blue);
+      cursor: pointer;
+    }
+    .author-button:hover { background: #e8f1fa; }
+    .author-button img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .author-dialog {
+      width: min(460px, calc(100vw - 32px));
+      max-height: min(86vh, 700px);
+      padding: 0;
+      border: 1px solid #dce5ee;
+      border-radius: 16px;
+      background: white;
+      color: var(--navy);
+      box-shadow: 0 30px 90px #00132b40;
+    }
+    .author-dialog::backdrop { background: #051323a6; }
+    .author-content { position: relative; padding: 32px; }
+    .author-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--soft);
+      color: var(--navy);
+      font-size: 21px;
+      cursor: pointer;
+    }
+    .author-portrait {
+      display: block;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      border: 3px solid #e8f2f9;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 30%;
+      box-shadow: 0 6px 18px #00132b18;
+    }
+    .author-eyebrow { color: var(--blue); font-size: 10px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; }
+    .author-content h2 { margin: 9px 0 12px; font-size: 23px; line-height: 1.25; }
+    .author-content p:not(.author-eyebrow) { color: #576b7d; font-size: 13px; line-height: 1.75; }
+    .author-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 12px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      background: var(--blue);
+      color: white;
+      font-size: 12px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .author-link:hover { background: #0b4d7d; }
+    .author-caption { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+    @media (max-width: 850px) {
+      .site-header { gap: 12px; }
+      .site-nav { gap: 12px; }
+      .site-nav a { font-size: 12px; }
+      .brand img { width: 126px; }
+      .brand-name { display: none; }
+    }
+    @media (max-width: 600px) {
+      .site-header { padding: 12px 5%; }
+      .site-nav { width: 100%; justify-content: space-between; gap: 9px; }
+      .site-nav a { font-size: 11px; }
+      .page-shell { padding: 24px 4% 38px; }
       .product-header { padding: 18px; }
-      .product-body { padding: 12px; }
+      .product-body { padding: 16px; }
+      .map-selector { align-items: stretch; }
+      .map-selector label { width: 100%; }
+      .map-selector select { flex: 1; min-width: 130px; max-width: 100%; }
+      .forecast-controls input[type="range"] { min-width: 130px; }
+      .about { padding: 20px; }
+      .author-content { padding: 26px; }
     }
   </style>
 </head>
 <body>
-  <header class="masthead" id="home">
-    <div class="container brand">
-      <img src="assets/tropical_observatory_logo_transparent.png"
-           alt="Tropical Weather and Climate Observatory emblem">
-      <div>
-        <h1>Tropical Weather &amp; Climate Observatory</h1>
-        <p>Weather | Climate | Atmospheric Dynamics | Scientific Exploration</p>
+  <header class="site-header" id="home">
+    <div class="brand">
+      <a href="#home" aria-label="Tropical Weather & Climate Observatory home">
+        <img src="assets/tropico_logo.png" alt="TRÓPICO Research Group">
+      </a>
+      <div class="brand-name">
+        Research Group on Tropical Climatology,<br>
+        Hydrology, and Meteorology
       </div>
     </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#home">Observatory</a>
+      <a href="#products">Observations</a>
+      <a href="#climate-state">Climate</a>
+      <a href="#forecast">Forecasts</a>
+      <a href="#about">About</a>
+      <a href="https://tropicoresearch.github.io/" target="_blank" rel="noopener noreferrer">TRÓPICO</a>
+      <button class="author-button" id="author-open" type="button"
+              title="About the author" aria-label="About the author"
+              aria-haspopup="dialog" aria-controls="author-dialog">
+        <img src="assets/alejandro_jaramillo_moreno.png" alt="" width="32" height="32">
+      </button>
+    </nav>
   </header>
 
-  <nav aria-label="Main navigation">
-    <div class="container">
-      <a href="#home">HOME</a>
-      <a href="#products">OBSERVATIONS</a>
-      <a href="#climate-state">CLIMATE STATE</a>
-      <a href="#forecast">FORECASTS</a>
-      <a href="#about">ABOUT</a>
-    </div>
-  </nav>
-
-  <main class="container">
-    <div class="breadcrumb">Home / Observations, Climate and Forecasts</div>
-
-    <section class="intro">
-      <h2 class="section-title">Welcome to the Tropical Weather &amp; Climate Observatory</h2>
-      <p>The Tropical Weather &amp; Climate Observatory is a personal scientific project
-         born out of curiosity, a love of atmospheric science, and a fascination with
-         the tropics. It is a place to explore weather and climate, experiment with
-         observational data, write code, learn new things, and simply enjoy the science.
-         The observatory brings together maps and other scientific products that I
-         develop along the way, sharing some of the beauty, complexity, and surprises
-         of the tropical atmosphere.</p>
+  <main class="page-shell">
+    <section class="introduction" aria-labelledby="page-title">
+      <div class="eyebrow">TRÓPICO · Scientific Platforms</div>
+      <h1 id="page-title">Tropical Weather &amp; Climate Observatory</h1>
+      <p class="description">
+        Explore tropical precipitation, ocean temperatures, atmospheric convection, and short-range
+        precipitation forecasts through regularly updated scientific maps. The observatory brings
+        together satellite observations and numerical weather prediction products, with a focus
+        on the tropics and the Americas.
+      </p>
+      <p class="update-note">Four scheduled updates daily (UTC) · Products reflect the latest available data from each source</p>
     </section>
 
-    <section id="products">
+    <section class="content-section" id="products">
+      <div class="section-heading">
+        <div class="eyebrow">Satellite observations</div>
+        <h2>Observational Products</h2>
+      </div>
       <h2 class="section-title">Observational Products</h2>
       <article class="product" id="precipitation">
         <div class="product-header">
@@ -178,8 +351,11 @@
 
     </section>
 
-    <section id="climate-state">
-      <h2 class="section-title">Tropical Climate State</h2>
+    <section class="content-section" id="climate-state">
+      <div class="section-heading">
+        <div class="eyebrow">Ocean and atmosphere</div>
+        <h2>Tropical Climate State</h2>
+      </div>
       <p class="section-lead">
         Daily satellite-based fields showing the current tropical ocean and convective environment.
         Select a region and choose either the observed value or its anomaly.
@@ -266,8 +442,11 @@
       </article>
     </section>
 
-    <section id="forecast">
-      <h2 class="section-title">Forecast Products</h2>
+    <section class="content-section" id="forecast">
+      <div class="section-heading">
+        <div class="eyebrow">Numerical weather prediction</div>
+        <h2>Forecast Products</h2>
+      </div>
       <article class="product" id="forecast-precipitation">
         <div class="product-header">
           <h3 id="forecast-title">GFS Tropical Precipitation Forecast</h3>
@@ -321,35 +500,63 @@
       </article>
     </section>
 
-    <section class="about" id="about">
+    <section class="about content-section" id="about">
+      <div class="eyebrow">Scientific development</div>
       <h2>About the Observatory</h2>
-      <p><strong>Scientific development and coordination</strong></p>
-      <p><strong>Alejandro Jaramillo Moreno</strong><br>
-         Departamento de Cambio Climático<br>
-         Instituto de Ciencias de la Atmósfera y Cambio Climático<br>
-         Universidad Nacional Autónoma de México (UNAM)<br>
-         Mexico City, Mexico</p>
-      <p>Email: <a href="mailto:ajaramillo@atmosfera.unam.mx">ajaramillo@atmosfera.unam.mx</a></p>
-      <p>Website: <a href="https://ajaramillomoreno.github.io"
-                     target="_blank" rel="noopener noreferrer">ajaramillomoreno.github.io</a></p>
+      <p>
+        Tropical Weather &amp; Climate Observatory is a scientific visualization and outreach
+        initiative developed by <strong>Alejandro Jaramillo-Moreno</strong>, Research Scientist at
+        the Instituto de Ciencias de la Atmósfera y Cambio Climático (ICAyCC), Universidad
+        Nacional Autónoma de México (UNAM), and one of the lead researchers of
+        <strong>TRÓPICO — Research Group on Tropical Climatology, Hydrology, and Meteorology</strong>.
+      </p>
+      <p>
+        Observation dates and forecast cycles are displayed with their individual products.
+        Data sources have different availability times, so scheduled updates do not imply
+        that every dataset is refreshed four times a day.
+      </p>
       <div class="disclaimer">
         <strong>Disclaimer</strong>
-        <p>The Tropical Weather &amp; Climate Observatory is a personal scientific
-           initiative, not an official operational service. The information is
-           provided for educational, exploratory, and research purposes only;
-           accuracy and suitability for particular decisions are not guaranteed.</p>
+        <p>
+          This is an independent scientific visualization and outreach initiative, not an
+          official operational product of NOAA or UNAM. Its products are intended for
+          research, education, and public communication, not for official weather warnings
+          or hazard-related decisions.
+        </p>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <strong>Tropical Weather &amp; Climate Observatory</strong>
-      <p>Curiosity | Open Science | Tropical Atmosphere</p>
-      <p>A personal scientific project by
-        <a href="https://ajaramillomoreno.github.io">Alejandro Jaramillo Moreno</a></p>
-    </div>
+  <footer class="site-footer">
+    <strong>Tropical Weather &amp; Climate Observatory</strong><br>
+    TRÓPICO — Research Group on Tropical Climatology, Hydrology, and Meteorology
+    <p>Independent scientific visualization initiative · Not an official NOAA or UNAM operational product</p>
+    <a href="https://github.com/tropicoresearch/tropical-observatory"
+       target="_blank" rel="noopener noreferrer">GitHub repository</a>
   </footer>
+
+  <dialog class="author-dialog" id="author-dialog" aria-labelledby="author-heading">
+    <div class="author-content">
+      <button class="author-close" id="author-close" type="button" aria-label="Close author information">&times;</button>
+      <img class="author-portrait"
+           src="assets/alejandro_jaramillo_moreno.png"
+           alt="Portrait of Alejandro Jaramillo-Moreno"
+           width="120" height="120">
+      <p class="author-eyebrow">About the author</p>
+      <h2 id="author-heading">Alejandro Jaramillo-Moreno</h2>
+      <p>Research Scientist at the Instituto de Ciencias de la Atmósfera y Cambio Climático
+         (ICAyCC), Universidad Nacional Autónoma de México (UNAM), and one of the lead
+         researchers of TRÓPICO.</p>
+      <p>My research focuses on tropical climate dynamics, organized convection,
+         precipitation, and hydroclimatology. I developed this observatory to make
+         tropical weather and climate easier to explore through scientific maps and data.</p>
+      <a class="author-link" href="https://ajaramillomoreno.github.io/"
+         target="_blank" rel="noopener noreferrer">
+        Discover my research and projects <span aria-hidden="true">↗</span>
+      </a>
+      <p class="author-caption">An independent scientific initiative, not an official UNAM or NOAA operational product.</p>
+    </div>
+  </dialog>
 
   <script>
     // All paths are relative to GitHub Pages; no GitHub commits are needed for images.
@@ -702,6 +909,19 @@
 
       enableControls(false);
       selectModel();
+    })();
+  </script>
+  <script>
+    // Author portrait: native dialog supports Escape and keyboard focus.
+    (() => {
+      const dialog = document.getElementById("author-dialog");
+      const open = document.getElementById("author-open");
+      const close = document.getElementById("author-close");
+      open.addEventListener("click", () => dialog.showModal());
+      close.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
     })();
   </script>
 </body>

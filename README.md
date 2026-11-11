@@ -1,110 +1,51 @@
-<div align="center">
 
-<img src="assets/tropical_observatory_logo.png" alt="Tropical Weather & Climate Observatory logo" width="300">
+<p align="center">
+  <img src="assets/tropico_logo.png" alt="TRÓPICO Research Group" width="650">
+</p>
 
 # Tropical Weather & Climate Observatory
 
-**An open observatory of tropical weather, hydroclimate, and climate variability**
+**Explore tropical weather, precipitation, and climate conditions across the Americas.**
 
-*Observing the tropical atmosphere and oceans, with a particular focus on the Americas.*
+[**Explore the Tropical Observatory**](https://tropicoresearch.github.io/tropical-observatory/)
 
-**Project status:** Under development
+Tropical Weather & Climate Observatory (TWCO) is a scientific monitoring and visualization platform developed by **Alejandro Jaramillo-Moreno**, Research Scientist at the Instituto de Ciencias de la Atmósfera y Cambio Climático (ICAyCC), Universidad Nacional Autónoma de México (UNAM), and one of the lead researchers of **TRÓPICO — Research Group on Tropical Climatology, Hydrology, and Meteorology**.
 
-</div>
+The observatory provides regularly updated maps of tropical precipitation, atmospheric conditions, sea surface temperature, and outgoing longwave radiation (OLR), combining satellite observations, climate datasets, and numerical weather prediction products.
+
+The platform integrates **NASA GPM IMERG, NOAA datasets, GFS, and ECMWF IFS**, with regional visualizations covering the global tropics, the Americas, Mexico, and Colombia. The observatory is updated automatically four times daily (UTC), with the latest available scientific products published as new data become available.
+
+
+Information about the observational products, data sources, and scientific interpretation is available directly on the [observatory website](https://tropicoresearch.github.io/tropical-observatory/).
 
 ---
 
-## About the observatory
+## Creator and Maintainer
 
-The **Tropical Weather & Climate Observatory (TWCO)** is an open-source project dedicated to monitoring and visualizing the evolving state of the tropical atmosphere and oceans. It aims to make observational data and reproducible scientific diagnostics accessible through regularly updated maps, figures, and time series.
+<table>
+  <tr>
+    <td width="160" align="center" valign="middle">
+      <a href="https://ajaramillomoreno.github.io/">
+        <img
+          src="assets/alejandro_jaramillo_moreno.png"
+          alt="Alejandro Jaramillo-Moreno"
+          width="140"
+        >
+      </a>
+    </td>
+    <td valign="middle">
+      <strong>Alejandro Jaramillo-Moreno</strong><br>
+      Research Scientist<br>
+      Instituto de Ciencias de la Atmósfera y Cambio Climático (ICAyCC)<br>
+      Universidad Nacional Autónoma de México (UNAM)<br>
+      One of the lead researchers of TRÓPICO<br><br>
+      <a href="https://ajaramillomoreno.github.io/">Personal Website</a>
+    </td>
+  </tr>
+</table>
 
-The observatory connects **short-term weather conditions** with **subseasonal-to-interannual climate variability**, emphasizing the atmospheric and oceanic processes that shape tropical hydroclimate. Its primary regional focus is **Mexico, Central America, the Caribbean, and tropical South America**, within a broader tropical and global context when needed to understand large-scale connections.
+---
 
-TWCO is an independent scientific and open-source project developed by **Alejandro Jaramillo Moreno**.
+### Disclaimer
 
-## Scientific scope
-
-The observatory is designed around five complementary themes:
-
-- **Tropical precipitation and hydroclimate:** rainfall accumulations, spatial patterns, anomalies, and wet and dry conditions.
-- **Tropical convection:** convective organization and its evolution, including diagnostics based on outgoing longwave radiation (OLR).
-- **Atmosphere–ocean interactions:** tropical sea surface temperature anomalies, ENSO, and associated climate variability.
-- **Tropical atmospheric dynamics:** circulation patterns, moisture transport, equatorial waves, and large-scale tropical disturbances.
-- **Climate variability and extremes:** connections across daily, intraseasonal, seasonal, and interannual timescales, including hydroclimatic extremes.
-
-## Planned observational products
-
-| Product | Main variables or diagnostics | Candidate data source | Update target |
-| --- | --- | --- | --- |
-| Tropical precipitation | Daily and multi-day rainfall accumulations | NASA GPM IMERG | Daily |
-| Tropical convection | OLR fields and anomalies | NOAA OLR datasets | Daily, subject to data availability |
-| Tropical oceans | Sea surface temperature and anomalies | NOAA OISST | Daily |
-| Atmospheric circulation | Winds and moisture-related diagnostics | Reanalysis products | To be determined |
-| Tropical variability | ENSO indicators, Hovmöller diagrams, and equatorial-wave diagnostics | Observations and reanalysis | To be determined |
-
-**These are planned products, not an indication that the automated data pipeline is already operational.** Sources, temporal coverage, refresh schedules, and processing methods will be documented for each product as it is implemented.
-
-## Data sources and scientific transparency
-
-TWCO will rely on openly accessible scientific datasets where possible, including:
-
-- [NASA Global Precipitation Measurement (GPM) / IMERG](https://gpm.nasa.gov/data/imerg)
-- [NOAA Optimum Interpolation Sea Surface Temperature (OISST)](https://www.ncei.noaa.gov/products/optimum-interpolation-sst)
-- [NOAA Physical Sciences Laboratory](https://psl.noaa.gov/) for selected climate datasets and diagnostics
-
-Every published observational product should identify its **original source, valid date or period, units, processing method, and—where applicable—climatological reference period**. Data latency and missing updates will be reported rather than represented as current observations.
-
-Source datasets remain subject to the usage, citation, and redistribution conditions of their respective providers.
-
-## Automation and publication
-
-The intended workflow is:
-
-1. Retrieve the latest available observational data.
-2. Validate timestamps, spatial coverage, and data completeness.
-3. Compute reproducible diagnostics and generate publication-quality figures in Python.
-4. Automatically update published products using **GitHub Actions**.
-5. Display the latest products through **GitHub Pages** as the website is developed.
-
-The automation and public dashboard will be introduced incrementally. Until then, this repository serves as the project home and development space.
-
-## Repository organization
-
-The planned structure is:
-
-```text
-tropical-observatory/
-├── .github/
-│   └── workflows/       # Scheduled workflows (planned)
-├── assets/
-│   └── tropical_observatory_logo.png
-├── config/              # Regions and product settings (planned)
-├── docs/                # Observatory website (planned)
-├── figures/             # Generated figures (planned)
-├── src/                 # Data access, diagnostics, plotting (planned)
-├── tests/               # Validation and automated tests (planned)
-├── .gitignore
-├── LICENSE
-└── README.md
-```
-
-Folders marked *planned* will be added as the corresponding functionality is developed.
-
-## Reproducibility and use
-
-The project will prioritize transparent methods, documented data provenance, open-source scientific computing, and reproducible visualizations. Its figures are intended for **scientific exploration, education, and public communication**; they are **not operational weather forecasts or official hazard warnings**.
-
-For research or publication use, please acknowledge the original data providers and cite the specific TWCO software release or scientific product when citation information becomes available.
-
-## Project lead
-
-**Alejandro Jaramillo Moreno**  
-Atmospheric scientist · Tropical climate dynamics · Hydroclimatology
-
-- [Personal website](https://ajaramillomoreno.github.io/)
-- [GitHub](https://github.com/ajaramillomoreno)
-- [ORCID](https://orcid.org/0000-0002-4175-7726)
-
-## License
-
-The source code is intended to be distributed under the [MIT License](LICENSE). Scientific datasets and third-party materials retain their respective licenses and attribution requirements.
+Tropical Weather & Climate Observatory is an independent scientific visualization and outreach initiative. It is not an official operational product of NOAA or UNAM. Its products are intended for scientific exploration, education, and public communication, not for issuing official weather forecasts or hazard warnings.
